@@ -3,7 +3,7 @@ import React, { useContext } from "react";
 import IconButton from "@material-ui/core/IconButton";
 import ClearIcon from "@material-ui/icons/Clear";
 import DehazeIcon from "@material-ui/icons/Dehaze";
-import DirectionsRunIcon from "@material-ui/icons/DirectionsRun";
+import PlayArrowIcon from "@material-ui/icons/PlayArrow";
 import { SideBarContext, IAction } from "./SideBarContext";
 import SourceDropDown from "./SourceDropDown";
 import "./NavBar.css";
@@ -11,6 +11,26 @@ import "./NavBar.css";
 /**
  * States
  */
+
+let sourceOptions: string[] = ["Source1", "Source2", "Source3", "Source4"];
+let libraryOptions: string[] = [
+  "NONE",
+  "RUNES",
+  "CURVES",
+  "SOUNDS",
+  "BINARYTREES",
+  "PIX&FLIX",
+  "MACHINELEARNING",
+  "All"
+];
+let languageOptions: string[] = [
+  "Source",
+  "C++",
+  "Java",
+  "Typescript",
+  "Javascript",
+  "Python"
+];
 
 const NavBar: React.FC = () => {
   const { state, dispatch } = useContext(SideBarContext);
@@ -49,13 +69,25 @@ const NavBar: React.FC = () => {
           <div className="navBar_navigation-items">
             <ul>
               <li>
-                <SourceDropDown />
+                <SourceDropDown
+                  dropDownType="CHANGE_SOURCE"
+                  options={sourceOptions}
+                  sideBarString={"source"}
+                />
               </li>
               <li>
-                <a href="/">Library</a>
+                <SourceDropDown
+                  dropDownType="CHANGE_LIBRARY"
+                  options={libraryOptions}
+                  sideBarString={"library"}
+                />
               </li>
               <li>
-                <a href="/">Language</a>
+                <SourceDropDown
+                  dropDownType="CHANGE_LANGUAGE"
+                  options={languageOptions}
+                  sideBarString={"language"}
+                />
               </li>
               <li>
                 <a href="/">TextBook</a>
@@ -71,7 +103,7 @@ const NavBar: React.FC = () => {
           <div className="spacer2"></div>
           <div className="playButton">
             <IconButton>
-              <DirectionsRunIcon
+              <PlayArrowIcon
                 style={{
                   color: "white",
                   height: "45px"

@@ -24,19 +24,44 @@ const useStyles = makeStyles({
 
 type Anchor = "top";
 
-export default function SideBarDropDownSource() {
+type Props = {
+  dropDownType: string;
+  options: string[];
+  sideBarString: string;
+};
+
+const SideBarDropDownTemplate: React.FC<Props> = ({
+  dropDownType,
+  options,
+  sideBarString
+}) => {
   const { globalState, dispatch } = useContext(Store);
-  const changeSource = (source: string): IGlobalAction => {
-    return dispatch({
-      type: source
-    });
+
+  const str = sideBarString;
+  const change = (input: string): IGlobalAction => {
+    if (str == "source") {
+      return dispatch({
+        type: dropDownType,
+        source: input
+      });
+    } else if (str == "library") {
+      return dispatch({
+        type: dropDownType,
+        library: input
+      });
+    } else {
+      return dispatch({
+        type: dropDownType,
+        language: input
+      });
+    }
   };
 
+  //drop down
   const classes = useStyles();
   const [state, setState] = React.useState({
     top: false
   });
-
   const toggleDrawer = (anchor: Anchor, open: boolean) => (
     event: React.KeyboardEvent | React.MouseEvent
   ) => {
@@ -61,36 +86,11 @@ export default function SideBarDropDownSource() {
       onKeyDown={toggleDrawer(anchor, false)}
     >
       <List>
-        <ListItem
-          button={true}
-          onClick={() => changeSource("CHANGE_TO_SOURCE1")}
-        >
-          <ListItemText
-            style={{ color: "white" }}
-            primary={"source1"}
-          ></ListItemText>
-        </ListItem>
-        <ListItem
-          button={true}
-          style={{ color: "white" }}
-          onClick={() => changeSource("CHANGE_TO_SOURCE2")}
-        >
-          <ListItemText primary={"source2"}></ListItemText>
-        </ListItem>
-        <ListItem
-          button={true}
-          style={{ color: "white" }}
-          onClick={() => changeSource("CHANGE_TO_SOURCE3")}
-        >
-          <ListItemText primary={"source3"}></ListItemText>
-        </ListItem>
-        <ListItem
-          button={true}
-          style={{ color: "white" }}
-          onClick={() => changeSource("CHANGE_TO_SOURCE4")}
-        >
-          <ListItemText primary={"source4"}></ListItemText>
-        </ListItem>
+        {options.map(text => (
+          <ListItem button key={text} onClick={() => change(text)}>
+            <ListItemText primary={text} style={{ color: "white" }} />
+          </ListItem>
+        ))}
       </List>
     </div>
   );
@@ -103,7 +103,11 @@ export default function SideBarDropDownSource() {
             onClick={toggleDrawer(anchor, true)}
             style={{ color: "white" }}
           >
-            {globalState.source}
+            {str == "source"
+              ? globalState.source
+              : str == "library"
+              ? globalState.library
+              : globalState.language}
           </Button>
           <Drawer
             anchor={anchor}
@@ -116,4 +120,6 @@ export default function SideBarDropDownSource() {
       ))}
     </div>
   );
-}
+};
+
+export default SideBarDropDownTemplate;

@@ -2,23 +2,30 @@ import React from "react";
 import { createContext } from "react";
 
 const defaultSource: string = "Source";
-const defaultLanguage: string = "source";
-const defaultLibaray: string = "none";
+const defaultLanguage: string = "Language";
+const defaultLibaray: string = "Library";
+const defaultValue: string = "// Type your program in here\n\n";
 
-interface IGlobalState {
-  source: string;
-  library: string;
-  language: string;
+export interface IGlobalState {
+  source: string | undefined;
+  library: string | undefined;
+  language: string | undefined;
+  playgroundEditorValue: string | undefined;
 }
 
 export interface IGlobalAction {
   type: String;
+  source?: string;
+  library?: string;
+  language?: string;
+  playgroundEditorValue?: string;
 }
 
 const initialState: IGlobalState = {
   source: defaultSource,
   library: defaultLibaray,
-  language: defaultLanguage
+  language: defaultLanguage,
+  playgroundEditorValue: defaultValue
 };
 
 export const Store = createContext<IGlobalState | any>(initialState);
@@ -28,25 +35,26 @@ function reducer(
   action: IGlobalAction
 ): IGlobalState {
   switch (action.type) {
-    case "CHANGE_TO_SOURCE1":
+    case "CHANGE_SOURCE":
       return {
         ...globalState,
-        source: "Source1"
+        source: action.source
       };
-    case "CHANGE_TO_SOURCE2":
+    case "CHANGE_LIBRARY":
       return {
         ...globalState,
-        source: "Source2"
+        library: action.library
       };
-    case "CHANGE_TO_SOURCE3":
+    case "CHANGE_LANGUAGE":
       return {
         ...globalState,
-        source: "Source3"
+        language: action.language
       };
-    case "CHANGE_TO_SOURCE4":
+    case "UPDATE_EDITOR_VALUE":
+      console.log(globalState.playgroundEditorValue);
       return {
         ...globalState,
-        source: "Source4"
+        playgroundEditorValue: action.playgroundEditorValue
       };
     default:
       throw new Error();

@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import AceEditor from "react-ace";
 
 import "ace-builds/src-noconflict/mode-javascript"; // replace with mode source in the future
 import "ace-builds/src-noconflict/theme-tomorrow";
+import { IGlobalAction, Store } from "../Store";
 
 export interface IEditorProps {
   preloadedProg: string;
@@ -11,11 +12,12 @@ export interface IEditorProps {
 }
 
 function Editor(props: IEditorProps) {
-  const [value, setValue] = React.useState(props.preloadedProg);
-
+  const { globalState, dispatch } = useContext(Store);
   function onChangeMethod(newCode: string) {
-    props.callBack(newCode);
-    setValue(newCode);
+    return dispatch({
+      type: "UPDATE_EDITOR_VALUE",
+      playgroundEditorValue: newCode
+    });
   }
 
   return (
@@ -23,13 +25,13 @@ function Editor(props: IEditorProps) {
       className="react-ace"
       mode="javascript"
       theme="tomorrow"
-      height="100vh"
+      height="90vh"
       width="inherit"
       fontSize="17"
-      value={value}
+      value={globalState.playgroundEditorValue}
       tabSize={4}
       onChange={onChangeMethod}
-      style={{ zIndex: -1 }}
+      style={{ zIndex: 0 }}
     />
   );
 }
