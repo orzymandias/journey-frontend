@@ -20,6 +20,7 @@ function App() {
               <Route exact path="/mission" component={MissionOverview} />
               <Route path="/mission/:missionID/:page" component={Mission} />
               <Route path="/playground" component={Playground} />
+              <Route path="/assessment" component={AssessmentContainer} />
             </Switch>
           </BrowserRouter>
         </StoreProvider>

@@ -16,6 +16,9 @@ import {
   QuestionTypes
 } from "../assessment/assessmentShape";
 
+export type AssessmentWorkspaceProps =  OwnProps & StateProps;
+
+
 export type StateProps = {
   assessment?: IAssessment;
   autogradingResults: AutogradingResult[];

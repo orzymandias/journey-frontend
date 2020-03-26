@@ -7,6 +7,7 @@ import "ace-builds/src-noconflict/theme-tomorrow";
 export interface IEditorProps {
   preloadedProg: string;
   callBack: (newCode: string) => void;
+  
 }
 
 function Editor(props: IEditorProps) {
