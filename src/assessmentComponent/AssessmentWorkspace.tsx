@@ -52,9 +52,9 @@ class AssessmentWorkspace {
     return (
       <>
         <NavBar2 seed={1} />
-        <Workspace
+        {/* <Workspace
           editor={<Editor preloadedProg="" callBack={() => {}} />}
-          repl={<REPL />}
+          repl={<REPL />} */}
           question={<Question />}
         />
       </>

@@ -122,6 +122,7 @@ function Editor(props: IEditorProps) {
     height="100%"
     highlightActiveLine={false}
     mode="javascript"
+    value={globalState.playgroundEditorValue}
     onChange={onChangeMethod}
     theme="tomorrow"
     width="100%"

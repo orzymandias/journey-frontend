@@ -16,7 +16,8 @@ const Playground: React.FC = () => {
   const editorProps = {
     preloadedProg: "",
     callBack: () => {},
-    editorSessionId: ""    
+    editorSessionId: "",
+    handleEditorValueChange: () => {}
   }
 
   return (
