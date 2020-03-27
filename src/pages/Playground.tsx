@@ -12,11 +12,18 @@ const Playground: React.FC = () => {
   useEffect(() => {
     saveState(globalState);
   });
+
+  const editorProps = {
+    preloadedProg: "",
+    callBack: () => {},
+    editorSessionId: ""    
+  }
+
   return (
     <div>
       <CompleteNavBar />
       <Workspace
-        editor={<Editor preloadedProg={""} callBack={() => {}} />}
+        editor={<Editor {...editorProps} />}
         repl={<Description />}
         question={<div></div>}
       />
