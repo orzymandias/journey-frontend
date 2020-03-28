@@ -6,20 +6,27 @@ import { checkSessionIdExists } from './collabEditing/';
 
 import "ace-builds/src-noconflict/mode-javascript"; // replace with mode source in the future
 import "ace-builds/src-noconflict/theme-tomorrow";
-import { IGlobalAction, Store } from "../Store";
+import { IGlobalAction, Store } from "../reducers/Store";
 
-export interface IEditorProps {
-  preloadedProg: string;
+export interface IEditorProps extends IMainEditorProps, ICollabEditorProps {}
+    
+export interface ICollabEditorProps {
   editorSessionId: string;
+  websocketStatus?: number;
   sharedbAceInitValue?: string;
   sharedbAceIsInviting?: boolean;
-  callBack: (newCode: string) => void;
-  handleEditorValueChange: (newCode: string) => void;
   handleFinishInvite?: () => void;
   handleSetWebsocketStatus?: (websocketStatus: number) => void;
   handleUpdateHasUnsavedChanges?: (hasUnsavedChanges: boolean) => void
-  
 }
+
+export interface IMainEditorProps  {
+  preloadedProg: string;
+  callBack: (newCode: string) => void;
+  handleEditorValueChange: (newCode: string) => void;
+}
+
+
 
 function Editor(props: IEditorProps) {
   const { globalState, dispatch } = useContext(Store);

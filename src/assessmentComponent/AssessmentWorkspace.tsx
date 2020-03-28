@@ -1,6 +1,5 @@
 import React from "react";
 import Workspace from "../Workspace";
-import Question from "../Workspace/Question";
 import Editor from "../Workspace/Editor";
 import REPL from "../Workspace/REPL";
 import NavBar2 from "../NavBar/NavBar2";
@@ -54,8 +53,8 @@ class AssessmentWorkspace {
         <NavBar2 seed={1} />
         {/* <Workspace
           editor={<Editor preloadedProg="" callBack={() => {}} />}
-          repl={<REPL />} */}
-          question={<Question />}
+          repl={<REPL />}
+          question={<Question />} */}
         />
       </>
     );

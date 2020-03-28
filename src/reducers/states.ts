@@ -1,3 +1,5 @@
+
+
 export enum SideContentType {
   autograder = "autograder",
   briefing = "briefing",

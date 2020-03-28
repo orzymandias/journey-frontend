@@ -3,8 +3,8 @@ import Workspace from "../Workspace";
 import Editor from "../Workspace/Editor";
 import Description from "../Workspace/Description/index";
 import CompleteNavBar from "../NavBar/CompleteNavBar";
-import { saveState } from "./../localStorage";
-import { Store } from "./../Store";
+import { saveState } from "../reducers/localStorage";
+import { Store } from "../reducers/Store";
 import Repl from "./../Workspace/Repl2";
 
 const Playground: React.FC = () => {
