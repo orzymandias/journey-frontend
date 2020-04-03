@@ -5,6 +5,7 @@ import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
+import { red } from "@material-ui/core/colors";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -40,7 +41,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   root: {
     flexGrow: 1,
     width: "100%",
-    backgroundColor: theme.palette.background.paper
+    backgroundColor: theme.palette.background.paper,
   }
 }));
 
@@ -56,6 +57,7 @@ const TabContent: React.FC<Props> = Props => {
   const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
     setValue(newValue);
   };
+
   const buttonList = () => (
     <Tabs
       value={value}
@@ -85,7 +87,7 @@ const TabContent: React.FC<Props> = Props => {
 
   return (
     <div className={classes.root}>
-      <AppBar position="static" color="default">
+      <AppBar position="static" color="default" elevation={0}>
         {buttonList()}
       </AppBar>
       {contentList()}

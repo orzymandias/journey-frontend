@@ -38,8 +38,9 @@ const NavBar: React.FC = () => {
     dispatch({
       type: "BUTTON_PRESSED"
     });
+    
   return (
-    <div>
+    <div style={{ zIndex: 1 }}>
       <header className="navBar">
         <nav className="navBar_navigation">
           <div className="toggleButton">
@@ -75,7 +76,7 @@ const NavBar: React.FC = () => {
                   sideBarString={"source"}
                 />
               </li>
-              <li>
+              {/* <li>
                 <SourceDropDown
                   dropDownType="CHANGE_LIBRARY"
                   options={libraryOptions}
@@ -88,7 +89,7 @@ const NavBar: React.FC = () => {
                   options={languageOptions}
                   sideBarString={"language"}
                 />
-              </li>
+              </li> */}
               <li>
                 <a href="/">TextBook</a>
               </li>
