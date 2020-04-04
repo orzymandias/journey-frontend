@@ -119,6 +119,15 @@ function Editor(props: IEditorProps) {
   
   return (
     <AceEditor
+<<<<<<< HEAD
+=======
+    className="react-ace"
+    mode="javascript"
+    theme="black"
+    height="90vh"
+    width="inherit"
+    ref={aceEditor}
+>>>>>>> 3475221163ca0fc777aac0f891e941f304ed2b07
     className="react-ace"
     mode="javascript"
     theme="black"
@@ -133,7 +142,11 @@ function Editor(props: IEditorProps) {
     tabSize={4}
     value={globalState.playgroundEditorValue}
     onChange={onChangeMethod}
+<<<<<<< HEAD
     style={{ zIndex: 0 }}
+=======
+    style={{ zIndex: 0 }}Z
+>>>>>>> 3475221163ca0fc777aac0f891e941f304ed2b07
     setOptions={{
       fontFamily: "'Inconsolata', 'Consolas', monospace",
       enableBasicAutocompletion: true,
