@@ -46,7 +46,6 @@ function Editor(props: IEditorProps) {
       }
       const editor = (aceEditor.current as any).editor;
       const session = editor.getSession();
- 
       // Has session ID
       if (props.editorSessionId !== '') {
         handleStartCollabEditing(editor);
@@ -116,32 +115,32 @@ function Editor(props: IEditorProps) {
     });
   };
 
- 
+
   
   return (
     <AceEditor
-    ref={aceEditor}
     className="react-ace"
+    mode="javascript"
+    theme="black"
+    height="90vh"
+    width="inherit"
+    ref={aceEditor}
     editorProps={{
       $blockScrolling: Infinity
     }}
-    fontSize={17}
-    height="100%"
+    fontSize={16}
     highlightActiveLine={false}
-    mode="javascript"
+    tabSize={4}
     value={globalState.playgroundEditorValue}
     onChange={onChangeMethod}
-    theme="tomorrow"
-    width="100%"
+    style={{ zIndex: 0 }}
     setOptions={{
       fontFamily: "'Inconsolata', 'Consolas', monospace",
       enableBasicAutocompletion: true,
       enableLiveAutocompletion: true,
       enableSnippets: true
     }}
-  />
-
-  );
+  />);
 
 }
 

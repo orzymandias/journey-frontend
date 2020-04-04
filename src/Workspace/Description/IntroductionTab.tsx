@@ -25,7 +25,7 @@ the REPL.
 const IntroductionTab: React.FC = () => {
   return (
     <Typography variant="body2" component="p">
-      <Markdown content={INTRODUCTION} openLinksInNewWindow={true} />,
+      <Markdown content={INTRODUCTION} openLinksInNewWindow={true} />
     </Typography>
   );
 };

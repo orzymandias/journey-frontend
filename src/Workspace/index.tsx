@@ -1,7 +1,7 @@
 import React from "react";
 import clsx from "clsx";
 import useMediaQuery from '@material-ui/core/useMediaQuery';
-import "./workspace.css";
+import "./index.css";
 
 export interface IWorkspaceProps {
   repl: React.ReactElement;
@@ -12,6 +12,9 @@ export interface IWorkspaceProps {
 export interface IWorkspaceState {
   runState: boolean;
   editorInput: string;
+}
+
+export interface IWorkspaceStyleState {
   leftPanelWidth: number;
   rightPanelWidth: number;
 }
@@ -20,27 +23,17 @@ export default function(props: IWorkspaceProps){
   let [state, setState] : [IWorkspaceState, Function] = React.useState({
       runState: false,
       editorInput: "", // initially named code
-      leftPanelWidth: 50,
-      rightPanelWidth: 50,
     });
+
+  let [style, setStyle] : [IWorkspaceStyleState, Function] = React.useState({
+    leftPanelWidth: 50,
+    rightPanelWidth: 50,
+  });
+
+  let [isResizing, setIsResizing] : [boolean, Function] = React.useState(false);
 
   const phoneBreakpoint = 800;
   const inPhoneMode = useMediaQuery(`(max-width:${phoneBreakpoint}px)`);
-  React.useEffect(() => {
-    if(inPhoneMode) {
-      setState({
-        ...state,
-        leftPanelWidth: 100,
-        rightPanelWidth: 100,
-      })
-    } else {
-      setState({
-        ...state,
-        leftPanelWidth: 50,
-        rightPanelWidth: 50,
-      })
-    }
-  }, [inPhoneMode])
 
   const callBackFromRepl = () => {
     setState({
@@ -71,27 +64,58 @@ export default function(props: IWorkspaceProps){
   const resize = (e: MouseEvent) => {
     let editorWidth = e.clientX * 100 / window.innerWidth;
     if(editorWidth >= 30 && editorWidth <= 60){
-      setState({
-        ...state,
+      setStyle({
+        ...style,
         leftPanelWidth: e.clientX * 100 / window.innerWidth,
-        rightPanelWidth : 100 - e.clientX * 100 / window.innerWidth
+        rightPanelWidth : 100 - e.clientX * 100 / window.innerWidth,
       });
+      setIsResizing(true);
     }
   }
 
   const stopResize = () => {
     window.removeEventListener('mousemove', resize);
+    setIsResizing(false);
   }
 
-  return (
+  return inPhoneMode 
+  ? (
     <div className="root">
-      <div className="left-panel" style={{width: `${state.leftPanelWidth}vw`}}>
+      <div className="root-mobile">
+        <div className="right-panel">
+          {React.cloneElement(props.repl, {
+            callBack: callBackFromRepl,
+            runState: state.runState,
+            editorInput: state.editorInput,
+            callBackStop: callBackFromReplStop
+          })}
+          {props.question}
+        </div>
+        <div className="left-panel">
+          {React.cloneElement(props.editor, {
+            callBack: callBackFromEditor,
+          })}
+        </div>
+        <div className="right-panel">
+          {React.cloneElement(props.repl, {
+            callBack: callBackFromRepl,
+            runState: state.runState,
+            editorInput: state.editorInput,
+            callBackStop: callBackFromReplStop
+          })}
+          {props.question}
+        </div>
+      </div>
+    </div>
+  ) : (
+    <div className={clsx('root', isResizing && 'is-resizing')}>
+      <div className="left-panel" style={{width: `${style.leftPanelWidth}vw`}}>
         {React.cloneElement(props.editor, {
           callBack: callBackFromEditor,
         })}
         <div className="resizer" onMouseDown={handleResize}></div>
       </div>
-      <div style={{width: `${state.rightPanelWidth}vw`}}>
+      <div className="right-panel" style={{width: `${style.rightPanelWidth}vw`}}>
         {React.cloneElement(props.repl, {
           callBack: callBackFromRepl,
           runState: state.runState,

@@ -1,0 +1,82 @@
+.root {
+  display: flex;
+  flex-direction: row;
+
+  overflow-x: scroll;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+
+  overflow-y: hidden;
+  height: auto;
+}
+
+.root::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+  display: none;
+}
+.root::-webkit-scrollbar-thumb {
+  background: black;
+  border-radius: 10px;
+}
+.root::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.root-mobile {
+  display: flex;
+  flex-direction: row;
+}
+
+.root-mobile > div {
+  width : 100vw;
+
+  scroll-snap-align: start;
+}
+
+.left-panel {
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  padding: 50px 0 0;
+}
+
+.right-panel {
+  flex: 1
+}
+
+.resizer {
+  width: 10px;
+  background-color: transparent;
+  cursor: col-resize;
+  transition: ease;
+}
+
+.is-resizing {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+@media only screen and (max-width: 800px) {
+  /* .root {
+    flex-direction: column;
+  } */
+
+  /* .left-panel {
+    flex-direction: column;
+  } */
+
+  /* .right-panel {
+    width: 100vw;
+  } */
+
+  /* .resizer {
+    visibility: none
+  } */
+}
+
